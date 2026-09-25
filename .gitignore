@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+.python-version
+
+# Editors / OS
+.vscode/
+.DS_Store
+
+# C++ build artifacts
+
+# Pipeline outputs
+packing/
+*.npy
+*.npz
+*.png
+
+# Data
+
+# Logs / temp
+*.log
+*.tmp
