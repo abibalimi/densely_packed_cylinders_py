@@ -91,7 +91,7 @@ def generate_packing(root, histo_mat, roi=1, shrink_factor=1.0,
     rc = M[:, 2] / 2.0
 
     # ---- 6. Compute physical FOV size ----
-    res = _physical_fov(histo_mat, roi, gratio, rc.mean(), shrink_factor) #if L is None else L
+    res = _physical_fov(histo_mat, roi, gratio, rc.mean(), shrink_factor)
 
     # ---- 7. Save ----
     np.savez(os.path.join(packing_dir, "packing.npz"),
@@ -135,14 +135,6 @@ def compute_n_grid(L, r_min, safety=2.0):
     """Next power of 2 >= safety * L / r_min."""
     n = int(np.ceil(safety * L / r_min))
     return 1 << (n - 1).bit_length()
-
-    
-def _freq(histo_mat, roi):
-    """Load frequency vector from CC_diameter_histogram.mat."""
-    from scipy.io import loadmat
-    m = loadmat(histo_mat, squeeze_me=True, struct_as_record=False)
-    cc = m["cc"]
-    return np.asarray(cc[roi - 1].frequency, dtype=float).ravel()
 
 
 def _physical_fov(histo_mat, roi, gratio, rc_mean, shrink_factor):

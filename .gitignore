@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 .python-version
+*.egg-info
 
 # Editors / OS
 .vscode/
@@ -9,10 +10,10 @@ __pycache__/
 # C++ build artifacts
 
 # Pipeline outputs
-packing/
-*.npy
-*.npz
-*.png
+# packing/
+# *.npy
+# *.npz
+# *.png
 
 # Data
 
