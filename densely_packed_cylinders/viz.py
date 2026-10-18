@@ -76,7 +76,7 @@ def plot_packing(xc, yc, rc, outfile=None, title="Axon Packing"):
         for j in (-1, 0, 1):
             for xi, yi, ri in zip(xc + i, yc + j, rc):
                 ax.add_patch(Circle((xi, yi), ri, fill=False,
-                                    edgecolor="k", linewidth=0.4))
+                                    edgecolor="k", linewidth=1))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.set_aspect("equal")

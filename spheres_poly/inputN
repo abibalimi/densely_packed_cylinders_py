@@ -1,5 +1,5 @@
 int eventspercycle = 20;
-int N = 492;
+int N = 3991;
 double initialpf = 0.01;
 double maxpf = 0.5;
 double temp = 0.2;

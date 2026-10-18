@@ -6,7 +6,7 @@ import numpy as np
 from scipy.io import loadmat
 
 
-def load_cc_histogram(mat_path, roi=1, shrink_factor=1.0):
+def load_cc_histogram(mat_path, roi=1, naxons=1000, shrink_factor=1.0):
     """
     Load inner axonal diameter histogram from the CC .mat file.
 
@@ -14,6 +14,7 @@ def load_cc_histogram(mat_path, roi=1, shrink_factor=1.0):
     ----------
     mat_path : path to CC_diameter_histogram.mat
     roi : ROI index (1 = genu of corpus callosum)
+    naxons : number of axons to generate
     shrink_factor : multiply histological diameters by this factor
 
     Returns
@@ -29,7 +30,7 @@ def load_cc_histogram(mat_path, roi=1, shrink_factor=1.0):
     diam = np.asarray(entry.diameter, dtype=float).ravel()
 
     # Number of axons per bin (integer counts, floored)
-    N_target = 500
+    N_target = naxons
     ct = np.floor(N_target * pct).astype(int)
 
     # Build the per-axon inner radius list

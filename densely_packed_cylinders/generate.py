@@ -33,7 +33,7 @@ char* datafile = stats.dat
 
 def generate_packing(root, histo_mat, roi=1, shrink_factor=1.0,
                      maxdensity=0.76, gratio=0.585, hardwallBC=0,
-                     seed=None, L=None):
+                     seed=9, naxons=500):
     """
     Full pipeline: histogram → initial positions → Donev packer → packing.
 
@@ -47,7 +47,7 @@ def generate_packing(root, histo_mat, roi=1, shrink_factor=1.0,
     gratio : g-ratio (inner / outer)
     hardwallBC : 0 periodic, 1 hard wall
     seed : RNG seed
-    L : user-provided physical FOV size (µm), optional
+    naxons : number of axons to generate
     Returns
     -------
     dict with keys: xc, yc, rc, res, gratio, ri, roi_name
@@ -58,7 +58,7 @@ def generate_packing(root, histo_mat, roi=1, shrink_factor=1.0,
     os.makedirs(packing_dir, exist_ok=True)
 
     # ---- 1. Load histogram, build per-axon inner radii ----
-    ri, roi_name = load_cc_histogram(histo_mat, roi, shrink_factor)
+    ri, roi_name = load_cc_histogram(histo_mat, roi, naxons, shrink_factor)
     N = len(ri)
 
     # ---- 2. Init positions and write read.dat ----
@@ -91,7 +91,7 @@ def generate_packing(root, histo_mat, roi=1, shrink_factor=1.0,
     rc = M[:, 2] / 2.0
 
     # ---- 6. Compute physical FOV size ----
-    res = _physical_fov(histo_mat, roi, gratio, rc.mean(), shrink_factor) if L is None else L
+    res = _physical_fov(histo_mat, roi, gratio, rc.mean(), shrink_factor) #if L is None else L
 
     # ---- 7. Save ----
     np.savez(os.path.join(packing_dir, "packing.npz"),
